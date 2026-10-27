@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b32">
+<title>Nutrition sportive à Maurice — Questionnaire</title>
+<style>
+  :root{
+    --forest:#173b32; --forest-2:#245647; --lime:#c8e58b; --paper:#f5f6f0;
+    --white:#fff; --ink:#202a26; --muted:#68746e; --line:#dfe5dd;
+    --soft:#eaf0e7; --shadow:0 18px 55px rgba(23,59,50,.08);
+    --radius:22px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+  .topbar{height:7px;background:linear-gradient(90deg,var(--forest) 0 68%,var(--lime) 68% 100%)}
+  .wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:34px 0 64px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em;color:var(--forest)}
+  .brand-mark{width:42px;height:42px;border-radius:14px;background:var(--forest);display:grid;place-items:center;color:var(--lime)}
+  .brand-mark svg{width:25px;height:25px}
+  .eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--forest-2)}
+  .private{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .private svg{width:16px;height:16px}
+  .hero{background:var(--forest);color:#fff;border-radius:28px;padding:clamp(26px,5vw,48px);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid rgba(200,229,139,.2);border-radius:50%;right:-100px;top:-130px;box-shadow:0 0 0 30px rgba(200,229,139,.04),0 0 0 65px rgba(200,229,139,.035)}
+  .hero .eyebrow{color:var(--lime)}
+  h1{font-size:clamp(2rem,5vw,3.25rem);line-height:1.08;letter-spacing:-.055em;max-width:640px;margin:13px 0 16px}
+  .hero p{color:#d9e5dd;max-width:600px;margin:0;font-size:1.02rem}
+  .hero-bottom{display:flex;flex-wrap:wrap;gap:10px;margin-top:27px}
+  .pill{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;font-size:.8rem;color:#f0f5f1;display:inline-flex;align-items:center;gap:7px}
+  .pill svg{width:15px;height:15px;color:var(--lime)}
+  .intro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 28px}
+  .intro-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+  .intro-card strong{display:block;margin-bottom:5px;color:var(--forest)}
+  .intro-card p{margin:0;color:var(--muted);font-size:.9rem}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:30px 2px 14px}
+  h2{font-size:1.3rem;letter-spacing:-.03em;margin:0;color:var(--forest)}
+  .section-head p{margin:3px 0 0;color:var(--muted);font-size:.88rem}
+  .progress-label{font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .progress{height:6px;background:#e1e7df;border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .progress span{display:block;height:100%;width:0;background:var(--forest-2);border-radius:99px;transition:width .2s}
+  form{display:grid;gap:14px}
+  .question{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(19px,3vw,26px);box-shadow:0 3px 14px rgba(23,59,50,.025)}
+  .qtop{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
+  .qnum{width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:var(--soft);color:var(--forest);font-size:.83rem;font-weight:800;display:grid;place-items:center}
+  .qtitle{font-weight:750;letter-spacing:-.018em;margin:2px 0 0;font-size:1.02rem}
+  .hint{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+  .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .option{position:relative;display:flex;align-items:center;gap:10px;min-height:48px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;cursor:pointer;transition:.15s;background:#fff}
+  .option:hover{border-color:#9ab49f;background:#fbfcfa}
+  .option:has(input:checked){border-color:var(--forest-2);background:#f0f5ec;box-shadow:inset 0 0 0 1px var(--forest-2)}
+  .option input{appearance:none;width:17px;height:17px;flex:0 0 17px;border:1.5px solid #aab5ac;border-radius:50%;margin:0;display:grid;place-items:center}
+  .option input[type=checkbox]{border-radius:5px}
+  .option input:checked{border-color:var(--forest-2);background:var(--forest-2)}
+  .option input:checked:after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
+  .option input[type=checkbox]:checked:after{width:8px;height:5px;background:transparent;border-left:2px solid #fff;border-bottom:2px solid #fff;border-radius:0;transform:rotate(-45deg);margin-top:-2px}
+  .option span{font-size:.91rem}
+  .other-field{display:none;margin-top:10px}
+  .other-field.visible{display:block}
+  input[type=text],textarea,select{width:100%;font:inherit;color:var(--ink);background:#fbfcfa;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
+  input[type=text]:focus,textarea:focus,select:focus{border-color:var(--forest-2);box-shadow:0 0 0 3px rgba(36,86,71,.1)}
+  .actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:10px}
+  .btn{border:0;border-radius:13px;padding:14px 19px;font:inherit;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:var(--forest);color:#fff}
+  .btn-primary:hover{background:var(--forest-2)}
+  .btn-secondary{background:#e7ece5;color:var(--forest)}
+  .btn svg{width:18px;height:18px}
+  .footnote{font-size:.8rem;color:var(--muted);max-width:460px}
+  .success{display:none;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(25px,5vw,45px);text-align:center;margin-top:24px}
+  .success.visible{display:block}
+  .success-icon{width:58px;height:58px;border-radius:20px;background:var(--soft);color:var(--forest);display:grid;place-items:center;margin:0 auto 17px}
+  .success h2{font-size:1.8rem;margin-bottom:10px}
+  .success p{color:var(--muted);max-width:520px;margin:0 auto 20px}
+  .hidden{display:none!important}
+  footer{margin-top:28px;padding:20px 4px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:.8rem}
+  .required{color:#9b4b35}
+  @media(max-width:620px){
+    .wrap{width:min(100% - 22px,900px);padding-top:22px}
+    header{align-items:flex-start}.private{max-width:125px;text-align:right}
+    .intro{grid-template-columns:1fr}
+    .options{grid-template-columns:1fr}
+    .actions{align-items:stretch;flex-direction:column-reverse}
+    .actions .btn{width:100%}
+    footer{flex-direction:column}
+  }
+  @media print{body{background:#fff}.topbar,.actions,.private{display:none}.wrap{width:100%;padding:0}.hero{box-shadow:none}.question{break-inside:avoid;box-shadow:none}.option{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<main class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 17.5 9.2 7l3.1 6 2.2-4.2L20 17.5H4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m7.2 17.5 2.2-4.2 2.1 2.4 2-3.3 3.3 5.1" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div>ENDURANCE / MAURICE</div>
+        <div class="eyebrow" style="font-size:.65rem;letter-spacing:.1em">Étude de marché indépendante</div>
+      </div>
+    </div>
+    <div class="private">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+      Questionnaire anonyme
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Votre expérience compte</div>
+    <h1>La nutrition sportive à Maurice.</h1>
+    <p>Vous pratiquez le trail, la course à pied, le cyclisme ou le triathlon ? Partagez vos habitudes et vos besoins pour contribuer à une meilleure compréhension de l'offre de nutrition sportive à Maurice.</p>
+    <div class="hero-bottom">
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> 4–6 minutes</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 15 questions</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8"/></svg> Sans obligation d'achat</span>
+    </div>
+  </section>
+
+  <section class="intro" aria-label="Informations">
+    <div class="intro-card"><strong>Pourquoi ce questionnaire ?</strong><p>Comprendre les produits utilisés, les habitudes d'achat, les budgets et les difficultés rencontrées par les sportifs à Maurice.</p></div>
+    <div class="intro-card"><strong>Confidentialité</strong><p>Ne renseignez aucune information permettant de vous identifier. Les réponses sont destinées à une étude exploratoire de marché.</p></div>
+  </section>
+
+  <div class="section-head">
+    <div><h2>Votre pratique et vos habitudes</h2><p>Répondez selon votre expérience réelle. Les questions marquées « plusieurs choix » autorisent plusieurs réponses.</p></div>
+    <div class="progress-label" id="progressLabel">0 / 15</div>
+  </div>
+  <div class="progress" aria-label="Progression du questionnaire"><span id="progressBar"></span></div>
+
+  <form id="survey" novalidate>
+    <div id="questions"></div>
+    <div class="actions">
+      <p class="footnote">Les réponses sont recueillies localement dans cette page de démonstration. Pour publier le questionnaire et recevoir les réponses, il faudra le connecter à un formulaire ou à une base de données.</p>
+      <button type="submit" class="btn btn-primary">Terminer le questionnaire <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </form>
+
+  <section class="success" id="success" role="status" aria-live="polite">
+    <div class="success-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2>Merci pour votre participation.</h2>
+    <p id="successMessage">Vos réponses ont été enregistrées. Merci de contribuer à cette étude de marché.</p>
+    <button type="button" class="btn btn-primary" id="downloadBtn">Télécharger mes réponses (.csv)</button>
+    <button type="button" class="btn btn-secondary" id="editBtn" style="margin-top:9px">Modifier mes réponses</button>
+  </section>
+
+  <footer>
+    <span>Étude exploratoire · Nutrition sportive à Maurice</span>
+    <span>Merci d'aider à mieux comprendre les besoins des sportifs.</span>
+  </footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://toogeymrqegznldcapaa.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_zVPOnNsrWP3K68MUt3mb1A_aOZQK1o3';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const questions = [
+ {id:1,title:"Quel sport pratiquez-vous principalement ?",type:"radio",required:true,options:["Trail running","Course sur route","Cyclisme sur route","VTT","Triathlon","Plusieurs de ces sports","Autre"]},
+ {id:2,title:"À quelle fréquence vous entraînez-vous ?",type:"radio",required:true,options:["1 fois par semaine ou moins","2 à 3 fois par semaine","4 à 5 fois par semaine","6 fois ou plus par semaine"]},
+ {id:3,title:"Participez-vous à des courses ou compétitions sportives ?",type:"radio",required:true,options:["Jamais","1 à 2 fois par an","3 à 5 fois par an","6 fois ou plus par an"]},
+ {id:4,title:"Utilisez-vous des produits de nutrition sportive pendant vos entraînements ou compétitions ?",type:"radio",required:true,options:["Oui, régulièrement","Oui, occasionnellement","Rarement","Jamais"]},
+ {id:5,title:"Quels types de produits utilisez-vous ?",type:"checkbox",required:true,hint:"Plusieurs choix possibles.",options:["Gels énergétiques","Barres énergétiques","Boissons isotoniques / énergétiques","Électrolytes","Poudres de glucides","Gommes énergétiques","Produits naturels (bananes, dattes, etc.)","Aucun"]},
+ {id:6,title:"Quelles marques de nutrition sportive avez-vous déjà utilisées ?",type:"checkbox",required:false,hint:"Plusieurs choix possibles. Ne sélectionnez que les marques que vous avez réellement utilisées.",options:["Maurten","Näak","Tā Energy","SiS (Science in Sport)","High5","GU Energy","Tailwind","Ergysport","Autre marque","Aucune marque en particulier"]},
+ {id:7,title:"Où achetez-vous actuellement vos produits de nutrition sportive à Maurice ?",type:"checkbox",required:true,hint:"Plusieurs choix possibles.",options:["Magasin de sport","Pharmacie","Boutique spécialisée en ligne","Site internet étranger","Lors d'événements sportifs","Auprès d'un club ou d'un coach","Je n'en achète pas","Autre"]},
+ {id:8,title:"Combien de gels ou portions de nutrition sportive consommez-vous en moyenne par mois ?",type:"radio",required:true,options:["Aucun","1 à 3","4 à 6","7 à 10","11 à 20","Plus de 20","Je ne sais pas"]},
+ {id:9,title:"Quel est votre budget mensuel approximatif pour la nutrition sportive ?",type:"radio",required:true,options:["Rs 0","Moins de Rs 500","Rs 500 à Rs 999","Rs 1 000 à Rs 1 999","Rs 2 000 à Rs 2 999","Rs 3 000 ou plus","Je ne sais pas / variable"]},
+ {id:10,title:"Quels critères influencent le plus votre choix de produits ?",type:"checkbox",required:true,hint:"Choisissez jusqu'à 3 réponses.",max:3,options:["Prix","Efficacité / performance","Composition des produits","Goût","Facilité de digestion","Disponibilité à Maurice","Réputation de la marque","Recommandation d'un coach ou d'autres sportifs","Autre"]},
+ {id:11,title:"Avez-vous des difficultés à trouver certains produits de nutrition sportive à Maurice ?",type:"radio",required:true,options:["Oui, souvent","Oui, parfois","Rarement","Jamais"]},
+ {id:12,title:"Quels problèmes rencontrez-vous le plus souvent ?",type:"checkbox",required:false,hint:"Plusieurs choix possibles.",options:["Prix trop élevés","Choix de marques limité","Produits souvent en rupture de stock","Difficulté à trouver les produits adaptés à mes besoins","Frais ou délais d'importation","Manque d'informations et de conseils","Aucun problème particulier","Autre"]},
+ {id:13,title:"Seriez-vous prêt(e) à essayer une nouvelle marque de nutrition sportive si elle proposait un prix compétitif et des produits adaptés à vos besoins ?",type:"radio",required:true,options:["Certainement","Probablement","Peut-être","Probablement pas","Certainement pas"]},
+ {id:14,title:"Quel format d'achat préférez-vous ?",type:"radio",required:true,options:["Produits à l'unité","Pack de 6 produits","Pack nutrition pour une course","Pack personnalisé selon mes besoins","Box mensuelle","Aucune préférence"]},
+ {id:15,title:"Par quel canal préféreriez-vous acheter vos produits de nutrition sportive à Maurice ?",type:"checkbox",required:true,hint:"Plusieurs choix possibles.",options:["Boutique en ligne avec livraison","Retrait en point de collecte","Magasin physique spécialisé","Événements sportifs","Clubs ou salles de sport","Abonnement / box mensuelle","Autre"]}
+];
+const container=document.getElementById('questions');
+const answers={};
+function render(){
+ container.innerHTML='';
+ questions.forEach(q=>{
+  const card=document.createElement('section');card.className='question';card.id='q'+q.id;
+  const top=document.createElement('div');top.className='qtop';
+  const num=document.createElement('div');num.className='qnum';num.textContent=String(q.id).padStart(2,'0');
+  const titleWrap=document.createElement('div');titleWrap.style.flex='1';
+  const title=document.createElement('div');title.className='qtitle';title.textContent=q.title+(q.required?' *':'');
+  titleWrap.appendChild(title);
+  if(q.hint){const hint=document.createElement('p');hint.className='hint';hint.textContent=q.hint;titleWrap.appendChild(hint)}
+  top.append(num,titleWrap);card.appendChild(top);
+  const opts=document.createElement('div');opts.className='options';
+  q.options.forEach((opt,i)=>{
+   const label=document.createElement('label');label.className='option';
+   const input=document.createElement('input');input.type=q.type;input.name='q'+q.id;input.value=opt;
+   input.checked=Array.isArray(answers[q.id])?answers[q.id].includes(opt):answers[q.id]===opt;
+   input.addEventListener('change',()=>{
+    if(q.type==='checkbox'){
+      const selected=[...opts.querySelectorAll('input:checked')];
+      if(q.max&&selected.length>q.max){input.checked=false;alert('Vous pouvez choisir jusqu’à '+q.max+' réponses.');return}
+      answers[q.id]=selected.map(el=>el.value);
+      if(q.id===5&&input.checked&&opt==='Aucun'){opts.querySelectorAll('input').forEach(el=>{if(el.value!=='Aucun')el.checked=false});answers[q.id]=['Aucun']}
+      if(q.id===5&&input.checked&&opt!=='Aucun'){const none=[...opts.querySelectorAll('input')].find(el=>el.value==='Aucun');if(none)none.checked=false;answers[q.id]=[...opts.querySelectorAll('input:checked')].map(el=>el.value)}
+    }else answers[q.id]=input.value;
+    updateProgress();
+   });
+   const span=document.createElement('span');span.textContent=opt;label.append(input,span);opts.appendChild(label);
+  });
+  card.appendChild(opts);
+  if(q.options.includes('Autre')||q.options.includes('Autre marque')){
+   const field=document.createElement('div');field.className='other-field';field.id='other'+q.id;
+   const inp=document.createElement('input');inp.type='text';inp.placeholder='Précisez (facultatif)';inp.setAttribute('aria-label','Précisez votre réponse à la question '+q.id);
+   inp.value=answers['other'+q.id]||'';inp.addEventListener('input',()=>answers['other'+q.id]=inp.value);
+   field.appendChild(inp);card.appendChild(field);
+   const refresh=()=>{const checked=[...opts.querySelectorAll('input:checked')].some(el=>el.value==='Autre'||el.value==='Autre marque');field.classList.toggle('visible',checked)};
+   opts.addEventListener('change',refresh);refresh();
+  }
+  container.appendChild(card);
+ });
+}
+function updateProgress(){
+ const count=questions.filter(q=>{const a=answers[q.id];return Array.isArray(a)?a.length>0:!!a}).length;
+ document.getElementById('progressLabel').textContent=count+' / '+questions.length;
+ document.getElementById('progressBar').style.width=(count/questions.length*100)+'%';
+}
+render();updateProgress();
+document.getElementById('survey').addEventListener('submit', async e=>{
+ e.preventDefault();
+ const missing=questions.find(q=>q.required&&!(Array.isArray(answers[q.id])?answers[q.id].length:answers[q.id]));
+ if(missing){document.getElementById('q'+missing.id).scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('q'+missing.id).style.borderColor='#b65e45';setTimeout(()=>document.getElementById('q'+missing.id).style.borderColor='',1800);return}
+ const submitButton = document.querySelector('#survey button[type="submit"]');
+ const originalButtonText = submitButton ? submitButton.textContent : '';
+ if(submitButton){submitButton.disabled=true;submitButton.textContent='Envoi en cours…';}
+ const payload = { ...answers };
+ try {
+   const { error } = await supabaseClient.from('questionnaire_responses').insert({ answers: payload });
+   if(error) throw error;
+   document.getElementById('successMessage').textContent='Vos réponses ont bien été enregistrées. Merci de contribuer à cette étude de marché.';
+   document.getElementById('survey').classList.add('hidden');
+   document.querySelector('.section-head').classList.add('hidden');
+   document.querySelector('.progress').classList.add('hidden');
+   document.getElementById('success').classList.add('visible');
+   document.getElementById('success').scrollIntoView({behavior:'smooth',block:'center'});
+ } catch (err) {
+   console.error('Supabase submission error:', err);
+   alert('Impossible d’enregistrer vos réponses pour le moment. Vérifiez votre connexion internet puis réessayez. Si le problème persiste, contactez la personne qui vous a transmis le questionnaire.');
+ } finally {
+   if(submitButton){submitButton.disabled=false;submitButton.textContent=originalButtonText;}
+ }
+});
+document.getElementById('editBtn').addEventListener('click',()=>{
+ document.getElementById('success').classList.remove('visible');
+ document.getElementById('survey').classList.remove('hidden');
+ document.querySelector('.section-head').classList.remove('hidden');
+ document.querySelector('.progress').classList.remove('hidden');
+ document.getElementById('survey').scrollIntoView({behavior:'smooth'});
+});
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+ const rows=[['Question','Réponse']];
+ questions.forEach(q=>rows.push([q.title,Array.isArray(answers[q.id])?answers[q.id].join('; '):(answers[q.id]||'')+(answers['other'+q.id]?' — '+answers['other'+q.id]:'')]));
+ const csv='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download='reponses-nutrition-sportive-maurice.csv';a.click();URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
